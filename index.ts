@@ -1,4 +1,5 @@
 import * as express from 'express'
+import * as morgan from 'morgan';
 import * as multer from 'multer'
 import * as cors from 'cors'
 import * as fs from 'fs'
@@ -22,6 +23,7 @@ const db = new Loki(`${UPLOAD_PATH}/${DB_NAME}`, { persistenceMethod: 'fs' });
 
 // app
 const app = express();
+app.use(morgan('combined'));
 app.use(cors());
 
 app.post('/upload/images', upload.array('images', 12), async (req, res) => {
